@@ -8,9 +8,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class LocalPresenter(private val view: LocalContract.View,
-                     private val repository: Repository) : LocalContract.Presenter {
+class LocalPresenter(private val repository: Repository) : LocalContract.Presenter {
 
+    override lateinit var view: LocalContract.View
     private val compositeDisposable = CompositeDisposable()
 
     override fun getUsers() {

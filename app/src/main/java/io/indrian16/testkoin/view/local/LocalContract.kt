@@ -1,10 +1,12 @@
 package io.indrian16.testkoin.view.local
 
+import io.indrian16.testkoin.BasePresenter
+import io.indrian16.testkoin.BaseView
 import io.indrian16.testkoin.data.model.User
 
 interface LocalContract {
 
-    interface View {
+    interface View : BaseView<Presenter> {
 
         fun updateDataRv(userList: List<User>)
 
@@ -13,7 +15,7 @@ interface LocalContract {
         fun showError(error: String)
     }
 
-    interface Presenter {
+    interface Presenter : BasePresenter<View> {
 
         fun getUsers()
 

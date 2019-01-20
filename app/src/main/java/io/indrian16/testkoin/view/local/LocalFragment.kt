@@ -10,15 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 
 import io.indrian16.testkoin.R
-import io.indrian16.testkoin.data.local.AppDatabase
 import io.indrian16.testkoin.data.model.User
-import io.indrian16.testkoin.data.remote.UserGenerate
-import io.indrian16.testkoin.repository.LocalRepository
-import io.indrian16.testkoin.repository.RemoteRepository
-import io.indrian16.testkoin.repository.Repository
 import io.indrian16.testkoin.util.showToast
 import io.indrian16.testkoin.view.main.adapter.RvUser
 import kotlinx.android.synthetic.main.fragment_local.*
+import org.koin.android.ext.android.inject
 
 class LocalFragment : Fragment(), LocalContract.View, RvUser.OnUserClickListener {
 
@@ -27,18 +23,12 @@ class LocalFragment : Fragment(), LocalContract.View, RvUser.OnUserClickListener
         fun newInstance() = LocalFragment()
     }
 
-    private lateinit var presenter: LocalContract.Presenter
+    override val presenter: LocalContract.Presenter by inject()
     private val mAdapter = RvUser(this)
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-
-        val userDao = AppDatabase.getInstance(context!!).userDao()
-        val localRepository = LocalRepository(userDao)
-        val remoteRepository = RemoteRepository(UserGenerate())
-        val repository = Repository(localRepository, remoteRepository)
-
-        presenter = LocalPresenter(this, repository)
+        presenter.view = this
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

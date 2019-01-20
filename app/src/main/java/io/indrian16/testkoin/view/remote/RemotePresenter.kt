@@ -10,9 +10,9 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-class RemotePresenter(private val view: RemoteContract.View,
-                      private val repository: Repository) : RemoteContract.Presenter {
+class RemotePresenter(private val repository: Repository) : RemoteContract.Presenter {
 
+    override lateinit var view: RemoteContract.View
     private val compositeDisposable = CompositeDisposable()
 
     override fun getUsers() {

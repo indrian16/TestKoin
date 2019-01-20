@@ -1,10 +1,12 @@
 package io.indrian16.testkoin.view.remote
 
+import io.indrian16.testkoin.BasePresenter
+import io.indrian16.testkoin.BaseView
 import io.indrian16.testkoin.data.model.User
 
 interface RemoteContract {
 
-    interface View {
+    interface View : BaseView<Presenter>{
 
         fun updateDataRv(userList: List<User>)
 
@@ -17,7 +19,7 @@ interface RemoteContract {
         fun showError(error: String)
     }
 
-    interface Presenter {
+    interface Presenter : BasePresenter<View> {
 
         fun getUsers()
 
